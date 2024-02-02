@@ -1,30 +1,63 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Projeto Ignite timer
 
-Currently, two official plugins are available:
+O projeto é uma forma diferente de lidar com pomodoro, atribuindo um historico de lancamentos de atividades, um formulario feito com a biblioteca react-hook-form e todo feito em react.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## typescript + react + zod
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Rodando localmente
 
-- Configure the top-level `parserOptions` property like this:
+Clone o projeto
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
+```bash
+  git clone https://github.com/LuscaCid/ignite-timer-tsx.git
+```
+
+Entre no diretório do projeto
+
+```bash
+  cd ignite-timer-tsx
+```
+
+Instale as dependências
+
+```bash
+  npm install
+```
+
+Inicie o servidor
+
+```bash
+  npm run dev
+```
+
+
+## Instalação
+
+Instale as dependencias do projeto com npm
+
+```bash
+  cd ignite-timer-tsx
+  npm install
+  npm run dev
+```
+    
+## Stack utilizada
+
+**Front-end:** React, Redux, styled-components, react-hook-form, typescript, zod
+
+
+
+
+## Uso/Exemplos
+
+```javascript
+import Component from 'my-project'
+
+function App() {
+  return <Component />
 }
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
