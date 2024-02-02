@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const HomeContainer = styled.main`
-  flex: 1;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,17 +16,46 @@ export const HomeContainer = styled.main`
     
   }
 `
+const BaseInput = styled.input`
+  height: 2rem;
+  padding: 0.6rem;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: ${({theme}) => theme["gray-300"]};
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid ${({theme}) => theme["gray-500"]};
+  transition: border-bottom 0.2s;
+
+  &::placeholder{
+    color: ${({theme}) => theme["gray-500"]};
+  }
+  &:hover{
+    border-bottom: 2px solid ${({theme}) => theme["green-500"]};
+  }
+`
+
+export const TaskInput = styled(BaseInput)`
+  flex: 1;
+  &::-webkit-calendar-picker-indicator {
+    display: none !important;
+  }
+`
+
+export const MinutesAmountInput = styled(BaseInput)`
+  width: 5rem;
+`
 
 export const FormContainer = styled.div`
   display: flex;
   gap: .6rem;
+  width: 100%;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   color: ${({theme}) => theme["gray-100"]};
   font-size: 2rem;
   font-weight: bold;
-
 `
 export const CountdownContainer = styled.div`
 

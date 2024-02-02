@@ -7,6 +7,8 @@ declare module 'styled-components' {
   export interface DefaultTheme extends ThemeType {}
 }
 
+export type TaskStatusType = 'yellow-500' | 'red-500' | 'green-500'
+
 /**
  * simplesmente eu redeclaro o modulo do styled-components
  * para atribuir a uma interface la dentro que ela vai extender da que eu criei
