@@ -1,5 +1,13 @@
 import { Play } from 'phosphor-react'
-import { FormContainer, HomeContainer, CountdownContainer, Separator, StartCountdownButton, TaskInput, MinutesAmountInput } from './styles'
+import { 
+  FormContainer, 
+  HomeContainer, 
+  CountdownContainer, 
+  Separator, 
+  StartCountdownButton, 
+  TaskInput, 
+  MinutesAmountInput 
+} from './styles'
 
 //type Props = {}
 

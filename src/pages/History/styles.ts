@@ -6,6 +6,9 @@ export const HistoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  h1 {
+    font-size: 3rem;
+  }
 `
 
 export const HistoryList = styled.div`
@@ -60,7 +63,7 @@ export const Status = styled.span<StatusProps>`
     content: '';
     border-radius: 999px;
     background: ${({theme, variant}) => theme[variant]};
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 0.7rem;
+    height: 0.7rem;
   }
 `
