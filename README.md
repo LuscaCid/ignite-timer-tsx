@@ -52,11 +52,18 @@ Instale as dependencias do projeto com npm
 
 ## Uso/Exemplos
 
-```javascript
-import Component from 'my-project'
-
-function App() {
-  return <Component />
+```typescript
+//properties interface
+interface ComponentProps {
+  setStateFunction : React.dispatch<React.setStateAction<number>>
+  children : Reactnode
+} 
+export function App({setStateFunction, children} : ComponentProps) {
+  return (
+    <React.reactFragment>
+        {children}
+    </React.reactFragment>
+    )
 }
 ```
 
