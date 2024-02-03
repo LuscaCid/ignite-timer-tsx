@@ -11,7 +11,7 @@ import {
   TaskInput, 
   MinutesAmountInput 
 } from './styles'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const newCycleFormValidationSchema = zod.object({
   task : zod.string().min(1, 'informe a tarefa'),
@@ -41,8 +41,7 @@ function Home()  {
   const [cycles, setCycles] = useState<Cycle []>([])
 
   const [actualCycleId, setActualCycleId] = useState<string | null>(null)
-
-
+  const [minutes, setMinutes] = useState<number>(0)
   const handleCreateNewCycle = (data : NewCycleFormDataType) => {
     const {minutesAmount, task} = data
     const id : string = new Date().getTime().toString()
@@ -56,14 +55,19 @@ function Home()  {
     setCycles(prevState => [...prevState , newCycle])
     setActualCycleId(id)
     reset()
+    
   }
   const actualActiveCycle = cycles.find((cycle) => cycle.id === actualCycleId)
-
-  console.log(actualCycleId, 'id do ciclo atual')
-  console.log('ciclo atual procurado no array de ciclos', actualActiveCycle)
-
+  //starts with undefined
+  
   const task = watch('task')
   const isSubmitDisabled = !task
+
+  useEffect(() => {
+    const minutesFromActualActiveCycle = actualActiveCycle?.taskInfo.minutesAmount
+    setMinutes(() => minutesFromActualActiveCycle ? minutesFromActualActiveCycle : 0 )
+  }, [actualActiveCycle])
+
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
@@ -97,11 +101,11 @@ function Home()  {
         </FormContainer>
         
       <CountdownContainer>
-        <span>0</span>
-        <span>0</span>
+        <span>{String(minutes)[1] ? String(minutes)[0] : 0}</span>
+        <span>{String(minutes)[1] }</span>
         <Separator>:</Separator>
-        <span>0</span>
-        <span>0</span>
+        <span>00</span>
+        
       </CountdownContainer>
       <StartCountdownButton
         disabled = {isSubmitDisabled}
