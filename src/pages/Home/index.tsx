@@ -105,8 +105,8 @@ function Home()  {
         </FormContainer>
         
       <CountdownContainer>
-        <span>{String(minutes)[1] ? String(minutes)[0] : 0}</span>
-        <span>{String(minutes)[1] }</span>
+        <span>{minutesDisplay[1]}</span>
+        <span>{minutesDisplay[0] }</span>
         <Separator>:</Separator>
         <span>00</span>
         
