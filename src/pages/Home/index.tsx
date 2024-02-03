@@ -16,15 +16,15 @@ const newCycleFormValidationSchema = zod.object({
   task : zod.string().min(1, 'informe a tarefa'),
   minutesAmount : zod
   .number()
-  .min(5)
-  .max(60, 'valor acima do esperado'),
+  .min(5, "O VALOR MÍNIMO É DE 5 MINS")
+  .max(60, 'O VALOR MÁXIMO É DE 60 MINS'),
   
 })
 type NewCycleFormDataType = zod.infer<typeof newCycleFormValidationSchema>
 
 function Home()  { //handleSubmit basicamente recebe uma callback
   //i can see validation errors using formState that becomes inside of useForm
-  const { register, handleSubmit, watch /* formState */} = useForm<NewCycleFormDataType>({
+  const { register, handleSubmit, watch /* formState */, reset} = useForm<NewCycleFormDataType>({
     resolver : zodResolver(newCycleFormValidationSchema),
     defaultValues : {
       minutesAmount : 0,
@@ -36,6 +36,7 @@ function Home()  { //handleSubmit basicamente recebe uma callback
   
   const handleCreateNewCycle = (data : NewCycleFormDataType) => {
     console.log(data)
+    reset()
   }
 
   const task = watch('task')

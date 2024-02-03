@@ -19,7 +19,7 @@ export const HomeContainer = styled.main`
 const BaseInput = styled.input`
   height: 2rem;
   padding: 0.6rem;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: ${({theme}) => theme["gray-300"]};
   background: transparent;
@@ -33,6 +33,7 @@ const BaseInput = styled.input`
   &:hover{
     border-bottom: 2px solid ${({theme}) => theme["green-500"]};
   }
+padding: 1.1rem .5rem;
 `
 
 export const TaskInput = styled(BaseInput)`

@@ -110,3 +110,27 @@ a sintaxe :
 ````
 
 ainda existe a funcao watch que literalmente observa o campo do formulario sem que eu precise utilizar de states dentro do meu component
+
+exemplo abaixo que mostra como lidar com tipagem dentro do zod
+
+````js
+const newCycleFormValidationSchema = zod.object({
+  task : zod.string().min(1, 'informe a tarefa'),
+  minutesAmount : zod
+  .number()
+  .min(5)
+  .max(60, 'valor acima do esperado'),
+  
+})
+type NewCycleFormDataType = zod.infer<typeof newCycleFormValidationSchema>
+
+const testObjectZod = zod.object({
+  objectID : zod.number(),
+  author : zod.object({
+    name : zod.string(),
+    age : zod.number()
+  }),
+  taskInfo : newCycleFormValidationSchema
+})
+type testZod = zod.infer<typeof testObjectZod>
+````
