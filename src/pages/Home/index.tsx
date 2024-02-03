@@ -11,6 +11,7 @@ import {
   TaskInput, 
   MinutesAmountInput 
 } from './styles'
+import { useState } from 'react'
 
 const newCycleFormValidationSchema = zod.object({
   task : zod.string().min(1, 'informe a tarefa'),
@@ -22,9 +23,14 @@ const newCycleFormValidationSchema = zod.object({
 })
 type NewCycleFormDataType = zod.infer<typeof newCycleFormValidationSchema>
 
-function Home()  { //handleSubmit basicamente recebe uma callback
-  //i can see validation errors using formState that becomes inside of useForm
-  const { register, handleSubmit, watch /* formState */, reset} = useForm<NewCycleFormDataType>({
+interface Cycle {
+  id : string
+  taskInfo : NewCycleFormDataType 
+}
+
+function Home()  {
+ 
+  const { register, handleSubmit, watch, reset} = useForm<NewCycleFormDataType>({
     resolver : zodResolver(newCycleFormValidationSchema),
     defaultValues : {
       minutesAmount : 0,
@@ -32,12 +38,29 @@ function Home()  { //handleSubmit basicamente recebe uma callback
     }
   })
   
-  //acima eu estou inferindo que os elementos que meu form no html possuem os campos nomeados de dentro do type e com os seus respectivos tipos que advem de NewCycleFormDataType
-  
+  const [cycles, setCycles] = useState<Cycle []>([])
+
+  const [actualCycleId, setActualCycleId] = useState<string | null>(null)
+
+
   const handleCreateNewCycle = (data : NewCycleFormDataType) => {
-    console.log(data)
+    const {minutesAmount, task} = data
+    const id : string = new Date().getTime().toString()
+    const newCycle : Cycle = {
+      id : id,
+      taskInfo : { 
+        task , 
+        minutesAmount
+      }
+    }  
+    setCycles(prevState => [...prevState , newCycle])
+    setActualCycleId(id)
     reset()
   }
+  const actualActiveCycle = cycles.find((cycle) => cycle.id === actualCycleId)
+
+  console.log(actualCycleId, 'id do ciclo atual')
+  console.log('ciclo atual procurado no array de ciclos', actualActiveCycle)
 
   const task = watch('task')
   const isSubmitDisabled = !task
