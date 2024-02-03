@@ -39,9 +39,10 @@ function Home()  {
   })
   
   const [cycles, setCycles] = useState<Cycle []>([])
-
+  
   const [actualCycleId, setActualCycleId] = useState<string | null>(null)
   const [minutes, setMinutes] = useState<number>(0)
+  const [minutesDisplay, setMinutesDisplay] = useState<string>(String(minutes).padStart(2 ,"0"))
   const handleCreateNewCycle = (data : NewCycleFormDataType) => {
     const {minutesAmount, task} = data
     const id : string = new Date().getTime().toString()
@@ -67,7 +68,10 @@ function Home()  {
     const minutesFromActualActiveCycle = actualActiveCycle?.taskInfo.minutesAmount
     setMinutes(() => minutesFromActualActiveCycle ? minutesFromActualActiveCycle : 0 )
   }, [actualActiveCycle])
-
+  useEffect(() => {
+    const formattedMinute = String(minutes).padStart(2, "0") 
+    setMinutesDisplay(formattedMinute)
+  }, [minutes])
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
