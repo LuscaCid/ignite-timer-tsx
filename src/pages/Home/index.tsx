@@ -1,4 +1,7 @@
 import { Play } from 'phosphor-react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
 import { 
   FormContainer, 
   HomeContainer, 
@@ -9,21 +12,48 @@ import {
   MinutesAmountInput 
 } from './styles'
 
-//type Props = {}
+const newCycleFormValidationSchema = zod.object({
+  task : zod.string().min(1, 'informe a tarefa'),
+  minutesAmount : zod
+  .number()
+  .min(5)
+  .max(60, 'valor acima do esperado'),
+  
+})
+type NewCycleFormDataType = zod.infer<typeof newCycleFormValidationSchema>
 
-function Home()  {
+function Home()  { //handleSubmit basicamente recebe uma callback
+  //i can see validation errors using formState that becomes inside of useForm
+  const { register, handleSubmit, watch /* formState */} = useForm<NewCycleFormDataType>({
+    resolver : zodResolver(newCycleFormValidationSchema),
+    defaultValues : {
+      minutesAmount : 0,
+      task : ""
+    }
+  })
+  
+  //acima eu estou inferindo que os elementos que meu form no html possuem os campos nomeados de dentro do type e com os seus respectivos tipos que advem de NewCycleFormDataType
+  
+  const handleCreateNewCycle = (data : NewCycleFormDataType) => {
+    console.log(data)
+  }
+
+  const task = watch('task')
+  const isSubmitDisabled = !task
   return (
     <HomeContainer>
-      <form action="">
+      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <FormContainer>
           <label htmlFor="task">Vou trabalhar em</label>
           <TaskInput
-            list='sugestions-list' 
+          
+            list='task-suggestions' 
             type="text" 
             id='task'
             placeholder='Dê um nome para o seu projeto' 
+            {...register('task')}
           />
-          <datalist id='sugestions-list'>
+          <datalist id='task-suggestions'>
             <option value="lavar os pratos" />
             <option value="lavar os carros" />
             <option value="lavar os armarios" />
@@ -36,7 +66,8 @@ function Home()  {
             placeholder='00'  
             step={5}
             min={5}
-            max={60}
+            //max={60}
+            {...register('minutesAmount' , { valueAsNumber : true })}
           />
           <span>minutos.</span>
         </FormContainer>
@@ -49,7 +80,7 @@ function Home()  {
         <span>0</span>
       </CountdownContainer>
       <StartCountdownButton
-        disabled 
+        disabled = {isSubmitDisabled}
         type='submit'>
           <Play size={24}/>
         Começar
