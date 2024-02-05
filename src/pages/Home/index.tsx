@@ -11,6 +11,7 @@ import {
   StartCountdownButton,
   StopCountdownButton
 } from './styles'
+import { UseCyclesContext } from '../../context/CyclesContext'
 interface CyclesContextData {
   activeCycle : Cycle | undefined
   activeCycleId : string | null
@@ -32,8 +33,8 @@ const newCycleFormValidationSchema = zod.object({
 type NewCycleFormDataType = zod.infer<typeof newCycleFormValidationSchema>
 
 export function Home() {
+  const {cycles, setCycles} = UseCyclesContext()
   
-  const [ cycles, setCycles ] = useState<Cycle[]>([])
   //const [actualCycleId, setActualCycleId] = useState<string | null>(null)
   const [ activeCycleId, setActiveCycleId ] = useState<string | null>(null)
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)

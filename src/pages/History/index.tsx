@@ -1,8 +1,11 @@
 
-import { HistoryContainer, HistoryList, Status } from './styles'
+import { UseCyclesContext } from '../../context/CyclesContext'
+import { HistoryContainer, HistoryList } from './styles'
 //type Props = {}
 
+import { TableDataCollection } from './components/TableData' 
 export const History = () => {
+  const {cycles} = UseCyclesContext()
   return (
     <HistoryContainer>
       <h1> Meu Histórico </h1>
@@ -17,46 +20,15 @@ export const History = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>task de server</td>
-              <td>30 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <Status variant='green-500'>Concluido</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>task de server</td>
-              <td>30 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <Status variant = 'yellow-500'>Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>task de server</td>
-              <td>30 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <Status variant = 'red-500'>Interrompido</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>task de server</td>
-              <td>30 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <Status variant = 'green-500'>Concluido</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>task de server</td>
-              <td>30 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <Status variant = 'green-500'>Concluido</Status>
-              </td>
-            </tr>
+            {
+              cycles.length > 0 && (
+                cycles.map((cycle) => (
+                  <TableDataCollection 
+                    {cycle.finishedDate ?? }
+                  />
+                ))
+              )
+            }
           </tbody>
         </table>
       </HistoryList>
