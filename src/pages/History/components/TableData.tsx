@@ -27,11 +27,14 @@ export const TableDataCollection = ( {finishedDate,interruptDate,taskInfo, start
             <TableDataContainer>
                 {relativeDateFormattedFromNow}
             </TableDataContainer>
-            <Status variant={
-                finishedDate && "green-500" || interruptDate && "red-500" || 'yellow-500'
-            }>
-                {finishedDate && "Concluído" ||interruptDate && "Interrompido" || 'Em andamento' }
-            </Status>
+            <TableDataContainer>
+                <Status variant={
+                    finishedDate && "green-500" || interruptDate && "red-500" || 'yellow-500'
+                }>
+                    {finishedDate && "Concluído" ||interruptDate && "Interrompido" || 'Em andamento' }
+                </Status>
+            </TableDataContainer>
+                
         </tr>
             
     )
