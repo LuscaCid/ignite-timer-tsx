@@ -1,11 +1,12 @@
 
 import { UseCyclesContext } from '../../context/CyclesContext'
 import { HistoryContainer, HistoryList } from './styles'
-//type Props = {}
 
 import { TableDataCollection } from './components/TableData' 
+
 export const History = () => {
   const {cycles} = UseCyclesContext()
+
   return (
     <HistoryContainer>
       <h1> Meu Histórico </h1>
@@ -20,15 +21,17 @@ export const History = () => {
             </tr>
           </thead>
           <tbody>
-            {
-              cycles.length > 0 && (
-                cycles.map((cycle) => (
-                  <TableDataCollection 
-                    {cycle.finishedDate ?? }
-                  />
-                ))
-              )
-            }
+           {
+            cycles.length > 0 && cycles.map((cycle) => (
+              <TableDataCollection
+                key={cycle.id} 
+                startDate={cycle.startDate}
+                taskInfo={cycle.taskInfo}
+                finishedDate={cycle.finishedDate}
+                interruptDate={cycle.interruptDate}
+              />
+            ))
+           }
           </tbody>
         </table>
       </HistoryList>
