@@ -2,8 +2,7 @@ import { HandPalm, Play } from 'phosphor-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { createContext, useState } from 'react'
-import { Cycle } from './@types'
+import { createContext } from 'react'
 import { NewCycleForm } from './components/NewCycleForm'
 import { Countdown } from './components/Countdown'
 import {
@@ -13,12 +12,7 @@ import {
 } from './styles'
 import { UseCyclesContext } from '../../context/CyclesContext'
 interface CyclesContextData {
-  activeCycle : Cycle | undefined
-  activeCycleId : string | null
-  amountSecondsPassed : number
-  setActiveCycleId : React.Dispatch<React.SetStateAction<string | null>>
-  MarkCycleAsFinished : () => void
-  setSecondsPassed : (seconds : number) => void
+  
 }
 
 export const CyclesContext = createContext({} as CyclesContextData)
@@ -33,13 +27,14 @@ const newCycleFormValidationSchema = zod.object({
 })
 export type NewCycleFormDataType = zod.infer<typeof newCycleFormValidationSchema>
 
-export function Home() {
-  const {cycles, setCycles} = UseCyclesContext()
+export function Home() { 
+  const { 
+    activeCycle,
+    createNewCycle,
+    interruptActiveCycle 
+  } = UseCyclesContext()
   
   //const [actualCycleId, setActualCycleId] = useState<string | null>(null)
-  const [ activeCycleId, setActiveCycleId ] = useState<string | null>(null)
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
-  
   const newCycleForm = useForm<NewCycleFormDataType>({
     resolver : zodResolver(newCycleFormValidationSchema),
     defaultValues : {
@@ -47,63 +42,14 @@ export function Home() {
       task : ''
     }
   })
- 
-  const activeCycle = cycles.find((cycle) =>cycle.id === activeCycleId) //se nao encotrar, vira undefined
+  //se nao encotrar, vira undefined
   
-  const { handleSubmit, reset, watch } = newCycleForm
+  const { handleSubmit, watch, reset } = newCycleForm
 
-  function MarkCycleAsFinished() {
-    setCycles((prevState : Cycle[]) => 
-      prevState.map(cycle => {
-        if(cycle.id === activeCycleId){
-          return {
-            ...cycle,
-            finishedDate : new Date()
-          }
-        }else {
-          return {...cycle}
-        }
-      })
-    )
-  }
-  
-  const handleCreateNewCycle = (data: NewCycleFormDataType) => {
-    const { minutesAmount, task } = data
-    const id: string = new Date().getTime().toString()
-    const newCycle: Cycle = {
-      id,
-      taskInfo: {
-        task,
-        minutesAmount
-      },
-      startDate : new Date()
-    }
-   
-    setCycles(prevState => [...prevState, newCycle])
-    setAmountSecondsPassed(0)
-    setActiveCycleId(id)
+
+  function handleCreateNewCycle(data : NewCycleFormDataType){
+    createNewCycle(data)
     reset()
-    
-  }
-
-  function interruptActiveCycle() {
-    setActiveCycleId(null)
-    setCycles(
-      cycles.map((cycle : Cycle) => {
-      if(cycle.id === activeCycleId) {
-        return {
-          ...cycle,
-          interruptDate : new Date()
-        }
-      } else {
-        return cycle
-      }
-    })
-    )
-  }
-
-  function setSecondsPassed(seconds : number){
-    setAmountSecondsPassed(seconds)
   }
 
   const task = watch('task')
@@ -112,19 +58,12 @@ export function Home() {
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)}>
-      <CyclesContext.Provider value={{
-          activeCycle, 
-          activeCycleId,
-          amountSecondsPassed,
-          setActiveCycleId , 
-          MarkCycleAsFinished,
-          setSecondsPassed
-        }}>
+     
         <FormProvider {...newCycleForm}>
           <NewCycleForm />
         </FormProvider>      
         <Countdown />
-      </CyclesContext.Provider>
+     
         {
           activeCycle ? (
             <StopCountdownButton
@@ -141,12 +80,8 @@ export function Home() {
               Começar
             </StartCountdownButton>
           )
-        }
-        
-        
+        } 
       </form>
-
-
     </HomeContainer>
   )
 }
