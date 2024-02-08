@@ -3,9 +3,10 @@ import { UseCyclesContext } from '../../context/CyclesContext'
 import { HistoryContainer, HistoryList } from './styles'
 
 import { TableDataCollection } from './components/TableData' 
+import { Cycle } from '../Home/@types'
 
 export const History = () => {
-  const {cycles} = UseCyclesContext()
+  const {cyclesState} = UseCyclesContext()
 
   return (
     <HistoryContainer>
@@ -22,7 +23,7 @@ export const History = () => {
           </thead>
           <tbody>
            {
-            cycles.length > 0 && cycles.map((cycle) => (
+            cyclesState.cycles.length > 0 && cyclesState.cycles.map((cycle : Cycle) => (
               <TableDataCollection
                 key={cycle.id} 
                 startDate={cycle.startDate}

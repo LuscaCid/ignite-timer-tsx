@@ -1,7 +1,6 @@
 import { TableDataContainer, Status} from "./styles";
-import { StatusProps } from "../styles"; 
 import { Cycle } from "../../Home/@types";
-import { format, formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
 
 //minutes ago will be formatted

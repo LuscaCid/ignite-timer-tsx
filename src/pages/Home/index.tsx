@@ -2,7 +2,6 @@ import { HandPalm, Play } from 'phosphor-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { createContext } from 'react'
 import { NewCycleForm } from './components/NewCycleForm'
 import { Countdown } from './components/Countdown'
 import {
@@ -11,11 +10,6 @@ import {
   StopCountdownButton
 } from './styles'
 import { UseCyclesContext } from '../../context/CyclesContext'
-interface CyclesContextData {
-  
-}
-
-export const CyclesContext = createContext({} as CyclesContextData)
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'informe a tarefa'),
