@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.main`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,9 +11,20 @@ export const HomeContainer = styled.main`
     display: flex;
     flex-direction: column;
     gap: 5.6rem;
-    
+    width: fit content;
     align-items: center;
     
+  }
+  @media(max-width:86em){
+    form{
+      gap: 3rem;
+    }
+  }
+
+  @media(max-width:46em){
+    form{
+      gap: 2rem;
+    }
   }
 `
 
@@ -39,6 +50,10 @@ const BaseFormButton = styled.button`
     opacity: 0.7;
     cursor: not-allowed;
   }
+
+  @media(46em){
+    padding: 0.8rem;
+  } 
 
 `
 
