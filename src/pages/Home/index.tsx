@@ -10,6 +10,7 @@ import {
   StopCountdownButton
 } from './styles'
 import { UseCyclesContext } from '../../context/CyclesContext'
+import { useEffect } from 'react'
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'informe a tarefa'),
@@ -23,6 +24,7 @@ export type NewCycleFormDataType = zod.infer<typeof newCycleFormValidationSchema
 
 export function Home() { 
   const { 
+    cyclesState,
     activeCycle,
     createNewCycle,
     interruptActiveCycle 
@@ -48,7 +50,12 @@ export function Home() {
 
   const task = watch('task')
   const isSubmitDisabled = !task
-  
+  useEffect(() => {
+    const cyclesStateAsJSON = JSON.stringify(cyclesState)
+    console.log(cyclesStateAsJSON)
+    localStorage.setItem("@timer:cycles-state-1.0.0", cyclesStateAsJSON)
+}, [cyclesState])
+
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)}>

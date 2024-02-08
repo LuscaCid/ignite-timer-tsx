@@ -22,10 +22,12 @@ interface CyclesContextProps {
     children : ReactNode
 }
 
-
 export const CyclesContextProvider = ({children} : CyclesContextProps) => {
 
-    const [ cyclesState, dispatch ] = useReducer(cyclesReducer, { activeCycleId : undefined , cycles : []})
+    const [ cyclesState, dispatch ] = useReducer(cyclesReducer, { activeCycleId : undefined , cycles : []}, () => {
+        const dataCyclesAsJSON = localStorage.getItem("@timer:cycles-state-1.0.0")
+        if(dataCyclesAsJSON)return JSON.parse(dataCyclesAsJSON)
+    })
 
     const {activeCycleId, cycles } = cyclesState
     const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
@@ -38,28 +40,29 @@ export const CyclesContextProvider = ({children} : CyclesContextProps) => {
     }
 
     const createNewCycle = (data: NewCycleFormDataProps) => {
-    const { minutesAmount, task } = data
-    const id: string = new Date().getTime().toString()
-    const newCycle: Cycle = {
-        id,
-        taskInfo: {
-        task,
-        minutesAmount
-        },
-        startDate : new Date()
-    }
-    dispatch({type : "add_new_cycle", payload : {newCycle}})
-    setAmountSecondsPassed(0)
+        const { minutesAmount, task } = data
+        const id: string = new Date().getTime().toString()
+        const newCycle: Cycle = {
+            startDate : new Date(),
+            taskInfo: {
+                task,
+                minutesAmount
+            },
+            id
+        }
+        dispatch({type : "add_new_cycle", payload : {newCycle}})
+        setAmountSecondsPassed(0)
     
     } 
 
     function interruptActiveCycle() {
         dispatch({type : "interrupt_current_cycle", payload : {activeCycleId}})
-      }
+    }
 
-      function setSecondsPassed(seconds : number){
+    function setSecondsPassed(seconds : number){
         setAmountSecondsPassed(seconds)
-      }
+    }
+
     return (
         <CyclesContext.Provider value={{
             cyclesState, 
