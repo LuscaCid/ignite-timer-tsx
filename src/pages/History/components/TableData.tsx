@@ -4,12 +4,13 @@ import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
 
 //minutes ago will be formatted
-export const TableDataCollection = ( {finishedDate,interruptDate,taskInfo, startDate} : Cycle ) => {
+export const TableDataCollection = ( {finishedDate,interruptDate,taskInfo, startDate, id} : Cycle ) => {
     
     const relativeDateFormattedFromNow = formatDistanceToNow(startDate, {
         addSuffix :true,
         locale: ptBR
     }) 
+    console.log(id)
     /**
      * nome da task
      * duracao --> minutes Amount

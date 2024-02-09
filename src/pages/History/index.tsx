@@ -25,6 +25,7 @@ export const History = () => {
            {
             cyclesState.cycles.length > 0 && cyclesState.cycles.map((cycle : Cycle) => (
               <TableDataCollection
+                id={cycle.id}
                 key={cycle.id} 
                 startDate={cycle.startDate}
                 taskInfo={cycle.taskInfo}

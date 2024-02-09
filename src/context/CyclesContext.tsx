@@ -24,7 +24,7 @@ interface CyclesContextProps {
 
 export const CyclesContextProvider = ({children} : CyclesContextProps) => {
 
-    const [ cyclesState, dispatch ] = useReducer(cyclesReducer, { activeCycleId : undefined , cycles : []}, () => {
+    const [ cyclesState, dispatch ] = useReducer(cyclesReducer, { activeCycleId : null , cycles : []}, () => {
         const dataCyclesAsJSON = localStorage.getItem("@timer:cycles-state-1.0.0")
         if(dataCyclesAsJSON)return JSON.parse(dataCyclesAsJSON)
     })

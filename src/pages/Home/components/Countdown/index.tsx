@@ -43,7 +43,7 @@ export const Countdown = () => {
           )
         if(secondsDiff >= totalSeconds){
           MarkCycleAsFinished()
-          cyclesState.activeCycleId = undefined
+          cyclesState.activeCycleId = null
         }
         setSecondsPassed(secondsDiff)
         }, 1000) 
