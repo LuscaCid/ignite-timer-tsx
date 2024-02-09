@@ -24,11 +24,12 @@ interface CyclesContextProps {
 
 export const CyclesContextProvider = ({children} : CyclesContextProps) => {
 
-    const [ cyclesState, dispatch ] = useReducer(cyclesReducer, { activeCycleId : null , cycles : []}, () => {
-        const dataCyclesAsJSON = localStorage.getItem("@timer:cycles-state-1.0.0")
+    const [ cyclesState, dispatch ] = useReducer(cyclesReducer, { activeCycleId : null , cycles : []}, (initialValue : CyclesState) => {
+        const dataCyclesAsJSON = localStorage.getItem("@timer:cycles-state-1.0.1")
         if(dataCyclesAsJSON)return JSON.parse(dataCyclesAsJSON)
+        return initialValue
     })
-
+    console.log(cyclesState)
     const {activeCycleId, cycles } = cyclesState
     const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
 

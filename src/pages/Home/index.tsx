@@ -53,7 +53,7 @@ export function Home() {
   useEffect(() => {
     const cyclesStateAsJSON = JSON.stringify(cyclesState)
     console.log(cyclesStateAsJSON)
-    localStorage.setItem("@timer:cycles-state-1.0.0", cyclesStateAsJSON)
+    localStorage.setItem("@timer:cycles-state-1.0.1", cyclesStateAsJSON)
 }, [cyclesState])
 
   return (
